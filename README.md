@@ -10,6 +10,7 @@
 ### Disclaimer
 
 - This was my interpretation of the algorthim, I can't assure that it is 100% correct.
+- The code isn't 1:1 to the algorithm explained below.
 - This repo has the impl of 3 containers: `std::vector`, `std::list` and `std::deque`.
 - I highly encourage you try to implement it yourself, choose any 2 containers (that you haven't used) and figure out why one is faster/slower than the other.
 - My implementation is over-engineered on purpose :)
@@ -22,8 +23,7 @@
    - If the number of elements is odd, the last element is removed and saved for later.
 
 - Sort the pairs (cmp `a` with `b` and swap).
-   - Insert the `b` element of each pair into the final array.
-   - Sort the final array.
+   - Insert the `b` element of each pair into the final array and sort it, recursively.
 
 - Find the pair which has the first element in the final array.
    - Insert the `a` element of the pair at the beginning of the final array.
