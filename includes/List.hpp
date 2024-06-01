@@ -1,12 +1,15 @@
 #include "PMergeMe.hpp"
+#include <list>
 
-class Vector : public Container {
+class List : public Container {
 public:
-  Vector(
+  typedef std::list<int64_t>::iterator iterator;
+  typedef std::list<int64_t>::const_iterator const_iterator;
+  List(
     const PMergeMe::JacobsthalCache& jacobsthalCache
   );
-  Vector(const Vector& other);
-  ~Vector();
+  List(const List& other);
+  ~List();
   bool isSorted() const;
   void createPairs();
   void insert(int64_t nbr);
@@ -22,9 +25,9 @@ public:
   void output() const;
   bool hasDuplicates() const;
 private:
-  std::vector<int64_t>::iterator findInContainer(int64_t value);
-  Vector& operator=(const Vector& other);
-  Vector();
+  std::list<int64_t>::iterator findInContainer(int64_t value);
+  List& operator=(const List& other);
+  List();
 private:
-  std::vector<int64_t> elems;
+  std::list<int64_t> elems;
 };

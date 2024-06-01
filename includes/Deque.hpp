@@ -1,12 +1,13 @@
 #include "PMergeMe.hpp"
+#include <deque>
 
-class Vector : public Container {
+class Deque : public Container {
 public:
-  Vector(
+  Deque(
     const PMergeMe::JacobsthalCache& jacobsthalCache
   );
-  Vector(const Vector& other);
-  ~Vector();
+  Deque(const Deque& other);
+  ~Deque();
   bool isSorted() const;
   void createPairs();
   void insert(int64_t nbr);
@@ -22,9 +23,9 @@ public:
   void output() const;
   bool hasDuplicates() const;
 private:
-  std::vector<int64_t>::iterator findInContainer(int64_t value);
-  Vector& operator=(const Vector& other);
-  Vector();
+  std::deque<int64_t>::iterator findInContainer(int64_t value);
+  Deque& operator=(const Deque& other);
+  Deque();
 private:
-  std::vector<int64_t> elems;
+  std::deque<int64_t> elems;
 };

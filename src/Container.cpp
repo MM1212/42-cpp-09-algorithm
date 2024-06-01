@@ -30,7 +30,8 @@ void Container::insertSmallestPair() {
 }
 
 void Container::insertLeftover() {
-  this->pairs.push_back(std::make_pair(this->extra, 0));
+  if (this->extra != -1)
+    this->pairs.push_back(std::make_pair(this->extra, -1));
 }
 
 void Container::run() {

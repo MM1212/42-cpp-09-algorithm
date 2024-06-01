@@ -1,6 +1,6 @@
 PROJECT_NAME = PMergeMe
 
-NAME = pmergeme
+NAME = PmergeMe
 
 SRC_FILES = $(shell find src -type f -name "*.cpp" | sed 's/src\///g')
 

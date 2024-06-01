@@ -1,9 +1,14 @@
 #include "PMergeMe.hpp"
 #include "Vector.hpp"
+#include "Deque.hpp"
+#include "List.hpp"
 #include <sstream>
+#include <iostream>
+#include <limits>
 
-PMergeMe::PMergeMe(const std::string& str) : str(str) {
+PMergeMe::PMergeMe(int ac, char** av) {
   this->computeJacobsthal();
+  this->parse(ac, av);
 }
 
 PMergeMe::PMergeMe(const PMergeMe& other) : jacobsthalCache(other.jacobsthalCache), str(other.str) {}
@@ -35,6 +40,9 @@ void PMergeMe::readInput(const std::string& str, Container& container) {
     container.insert(nbr);
     i++;
   }
+  if (container.hasDuplicates()) {
+    throw std::invalid_argument("Duplicates");
+  }
   if (i < 2) {
     throw std::invalid_argument("Not enough numbers");
   }
@@ -50,12 +58,33 @@ void PMergeMe::setup(Container& container) {
 }
 
 void PMergeMe::compute() {
-  Vector vec(this->jacobsthalCache);
+  std::cout << "Before: " << this->str << std::endl;
+  this->computeContainer<Vector>("Vector", true);
+  this->computeContainer<Deque>("Deque");
+  this->computeContainer<List>("List");
+}
 
-  this->readInput(this->str, vec);
-  this->setup(vec);
-  vec.sortPairs();
-  vec.insertSmallestPair();
-  vec.insertLeftover();
-  vec.run();
+void PMergeMe::parse(int ac, char** av) {
+  for (uint32_t i = 0; i < static_cast<uint32_t>(ac); i++) {
+    if (!IsNumberValid(av[i])) {
+      throw std::invalid_argument("Invalid number");
+    }
+    this->str += av[i];
+    if (i < static_cast<uint32_t>(ac) - 1) {
+      this->str += " ";
+    }
+  }
+}
+
+bool PMergeMe::IsNumberValid(const std::string& str) {
+  for (uint64_t i = 0; i < str.size(); i++) {
+    if (!std::isdigit(str[i])) {
+      return false;
+    }
+  }
+  long long nbr = std::atoll(str.c_str());
+  if (nbr < std::numeric_limits<int>::min() || nbr > std::numeric_limits<int>::max()) {
+    return false;
+  }
+  return true;
 }

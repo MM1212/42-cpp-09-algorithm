@@ -1,5 +1,6 @@
 #include "Vector.hpp"
 #include <algorithm>
+#include <iostream>
 
 Vector::Vector(
   const PMergeMe::JacobsthalCache& jacobsthalCache
@@ -36,6 +37,8 @@ void Vector::prepare() {
     this->extra = this->elems.back();
     this->elems.pop_back();
   }
+  else
+    this->extra = -1;
 }
 
 void Vector::clear() {
@@ -71,4 +74,24 @@ void Vector::insertWithBinarySearch(uint64_t idx) {
   int64_t value = this->pairs[idx].first;
   std::vector<int64_t>::iterator end = this->findInContainer(this->pairs[idx].second);
   this->elems.insert(std::lower_bound(this->elems.begin(), end, value), value);
+}
+
+void Vector::output() const {
+  for (size_t i = 0; i < this->elems.size(); ++i) {
+    std::cout << this->elems[i];
+    if (i != this->elems.size() - 1)
+      std::cout << " ";
+  }
+  std::cout << std::endl;
+}
+
+bool Vector::hasDuplicates() const {
+  for (size_t i = 0; i < this->elems.size(); ++i) {
+    for (size_t j = i + 1; j < this->elems.size(); ++j) {
+      if (this->elems[i] == this->elems[j]) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
