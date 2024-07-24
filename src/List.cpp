@@ -26,10 +26,9 @@ bool List::isSorted() const {
 void List::createPairs() {
   this->pairs.clear();
   for (List::iterator it = this->elems.begin(); it != this->elems.end(); ++it) {
-    List::iterator next = it;
-    ++next;
-    if (next != this->elems.end()) {
-      pairs.push_back(std::make_pair(*it, *next));
+    List::iterator before = it++;
+    if (it != this->elems.end()) {
+      pairs.push_back(std::make_pair(*before, *it));
     }
   }
 }
